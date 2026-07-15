@@ -12,7 +12,7 @@ from pathlib import Path
 
 DATA = Path(__file__).parent / "data" / "usecases.json"
 CRITERIA = ["creative", "useful", "fun", "painPoint", "money"]
-CATEGORIES = ["Personal apps", "Life admin", "Business & money",
+CATEGORIES = ["Personal apps", "Life admin", "Money & budgeting",
               "Creative & media", "Knowledge work", "Dev workflows"]
 DIFFICULTIES = ["one-evening", "weekend", "ongoing"]
 WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")

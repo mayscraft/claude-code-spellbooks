@@ -1,10 +1,15 @@
 # Claude Code Spellbooks
 
 A use-case tracker with a Harry Potter spellbook theme: collects notable
-Claude Code use cases ("spells") scored against five criteria —
-**creative, useful, fun, solves a pain point, 💰 money-making (bonus)** —
-shelves them in a candlelit archive on a static page, and sends the
-weekly top 5 to Telegram.
+**personal & productivity** Claude Code use cases ("spells") scored
+against five criteria — **creative, useful, fun, solves a pain point,
+💰 saves money (bonus)** — shelves them in a candlelit archive on a
+static page, and sends the weekly top 5 to Telegram.
+
+Scope: things an individual can cast for themselves in an evening or a
+weekend (daily routines, health, home, hobbies, knowledge, personal dev
+workflows). Business-building, startup, and revenue plays are out of
+scope — deliberately.
 
 Static, no-build: plain HTML/CSS/JS + JSON, stdlib-only Python scripts.
 
@@ -18,8 +23,9 @@ python3 -m http.server 8124
 ## How it works
 
 - `data/usecases.json` — the data store. Each entry has a `category` (one of:
-  Personal apps, Life admin, Business & money, Creative & media,
-  Knowledge work, Dev workflows), criteria booleans, a computed `score`
+  Personal apps, Life admin, Money & budgeting, Creative & media,
+  Knowledge work, Dev workflows), criteria booleans (`money` = saves the
+  caster money), a computed `score`
   (number of true criteria, money included as bonus), a `recipe`
   (`how` to replicate it, `tools` list, `difficulty`: one-evening /
   weekend / ongoing), sources, and an ISO week stamp (`2026-W29`).

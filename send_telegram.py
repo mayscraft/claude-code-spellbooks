@@ -28,7 +28,7 @@ BADGES = [
     ("useful", "✅ useful"),
     ("fun", "\U0001f389 fun"),
     ("painPoint", "\U0001fa79 pain point"),
-    ("money", "\U0001f4b0 money"),
+    ("money", "\U0001f4b0 saves money"),
 ]
 
 
