@@ -3,53 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Claude Code Use Cases</title>
+<title>Claude Code Use Cases — Bookshelf</title>
 <style>
   :root {
-    --bg: #f7f7f5; --card: #ffffff; --text: #1a1a1a; --muted: #6b6b6b;
-    --border: #e3e3df; --accent: #c96442; --chip: #eeeee9; --chip-on: #c96442;
-    --gold: #b8860b;
+    --bg: #f3ede3; --text: #2b2118; --muted: #7d6f5f;
+    --wood: #a9764a; --wood-dark: #7d5433; --wood-edge: #5e3d22;
+    --panel: #fffdf8; --border: #e0d5c3; --accent: #c96442;
+    --chip: #e9e0d1; --chip-on: #c96442; --spine-text: #f7f1e3;
+    --shadow: rgba(60, 40, 20, .25);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #17171a; --card: #212125; --text: #ececec; --muted: #9a9aa2;
-      --border: #333338; --accent: #e08b64; --chip: #2b2b30; --chip-on: #e08b64;
-      --gold: #d4a53a;
+      --bg: #1b1712; --text: #eae2d4; --muted: #a39682;
+      --wood: #6e4b2c; --wood-dark: #4c3016; --wood-edge: #33200e;
+      --panel: #262019; --border: #3d3225; --accent: #e08b64;
+      --chip: #322a1f; --chip-on: #e08b64; --spine-text: #f2ead8;
+      --shadow: rgba(0, 0, 0, .5);
     }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
          font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 60px; }
   h1 { margin: 0 0 4px; font-size: 1.7rem; }
-  .sub { color: var(--muted); margin-bottom: 24px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
+  .sub { color: var(--muted); margin-bottom: 20px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   .chip { border: 1px solid var(--border); background: var(--chip); color: var(--text);
           border-radius: 999px; padding: 5px 14px; cursor: pointer; font-size: .88rem; }
   .chip.on { background: var(--chip-on); border-color: var(--chip-on); color: #fff; }
-  select { margin-left: auto; background: var(--card); color: var(--text);
-           border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: .88rem; }
+
+  /* Bookcase */
+  .bookcase { background: linear-gradient(175deg, var(--wood), var(--wood-dark));
+              border: 6px solid var(--wood-edge); border-radius: 10px;
+              padding: 18px 16px 6px; box-shadow: 0 12px 30px var(--shadow); }
+  .shelf-label { color: var(--spine-text); font-size: .8rem; letter-spacing: .08em;
+                 text-transform: uppercase; opacity: .85; margin: 4px 6px 6px; }
+  .books { display: flex; align-items: flex-end; gap: 5px; min-height: 170px;
+           padding: 0 8px; flex-wrap: wrap; }
+  .books .empty-shelf { color: var(--spine-text); opacity: .45; font-style: italic;
+                        font-size: .85rem; align-self: flex-end; padding: 8px 4px; }
+  .shelf-board { height: 13px; margin: 0 -8px 14px;
+                 background: linear-gradient(var(--wood-dark), var(--wood-edge));
+                 border-radius: 2px; box-shadow: 0 4px 6px var(--shadow); }
+  .book { border: none; cursor: pointer; width: 46px; border-radius: 4px 4px 0 0;
+          writing-mode: vertical-rl; display: inline-flex; align-items: center;
+          justify-content: space-between; padding: 10px 0 6px;
+          color: var(--spine-text); box-shadow: inset -3px 0 5px rgba(0,0,0,.25),
+          inset 2px 0 3px rgba(255,255,255,.15), 0 2px 4px var(--shadow);
+          transition: transform .15s ease; }
+  .book:hover, .book:focus-visible { transform: translateY(-10px); outline: none; }
+  .book .btitle { font-size: .78rem; font-weight: 600; line-height: 1.2;
+                  max-height: 122px; max-width: 34px; overflow: hidden; }
+  .book .bicons { font-size: .72rem; margin-top: 6px; letter-spacing: -1px; }
+
+  /* Drawer cabinet */
   h2 { font-size: 1.05rem; color: var(--muted); text-transform: uppercase;
-       letter-spacing: .06em; margin: 28px 0 12px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-          padding: 16px 18px; margin-bottom: 12px; }
-  .card.top { border-left: 3px solid var(--gold); }
-  .rank { color: var(--gold); font-weight: 700; margin-right: 6px; }
-  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-  .card p { margin: 0 0 8px; color: var(--text); font-size: .93rem; }
-  .example { color: var(--muted); font-style: italic; font-size: .88rem; margin-bottom: 8px; }
-  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .badge { font-size: .78rem; background: var(--chip); border-radius: 6px; padding: 2px 8px; }
-  .meta { font-size: .8rem; color: var(--muted); }
+       letter-spacing: .06em; margin: 32px 0 12px; }
+  .cabinet { background: linear-gradient(175deg, var(--wood), var(--wood-dark));
+             border: 6px solid var(--wood-edge); border-radius: 10px; padding: 14px;
+             box-shadow: 0 12px 30px var(--shadow); }
+  .drawers { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  @media (max-width: 640px) { .drawers { grid-template-columns: repeat(3, 1fr); } }
+  .drawer { border: none; cursor: pointer; border-radius: 6px; padding: 12px 6px 10px;
+            background: linear-gradient(180deg, var(--wood-dark), var(--wood-edge));
+            color: var(--spine-text); font-size: .85rem; font-weight: 600;
+            box-shadow: inset 0 2px 3px rgba(255,255,255,.15), 0 3px 5px var(--shadow);
+            transition: transform .15s ease; }
+  .drawer:hover, .drawer:focus-visible { transform: translateY(2px); outline: none; }
+  .drawer.open { transform: translateY(5px);
+                 box-shadow: inset 0 3px 8px rgba(0,0,0,.5); }
+  .drawer .handle { display: block; width: 26px; height: 5px; margin: 8px auto 0;
+                    border-radius: 3px; background: #d8c9a3;
+                    box-shadow: 0 1px 2px rgba(0,0,0,.5); }
+  .drawer .count { opacity: .8; font-weight: 400; font-size: .75rem; display: block; }
+  .drawer:disabled { opacity: .45; cursor: default; }
+  .drawer:disabled:hover { transform: none; }
+
+  .drawer-panel { background: var(--panel); border: 1px solid var(--border);
+                  border-radius: 0 0 10px 10px; margin: 14px -14px -14px;
+                  padding: 18px 20px; }
+  .panel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .panel-head strong { font-size: 1rem; }
+  select { margin-left: auto; background: var(--panel); color: var(--text);
+           border: 1px solid var(--border); border-radius: 8px; padding: 5px 9px;
+           font-size: .85rem; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+          padding: 12px 14px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 4px; font-size: .98rem; }
+  .card p { margin: 0 0 6px; font-size: .9rem; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .badge { font-size: .75rem; background: var(--chip); border-radius: 6px; padding: 2px 8px; }
+  .meta { font-size: .78rem; color: var(--muted); }
   .meta a { color: var(--accent); text-decoration: none; }
   .meta a:hover { text-decoration: underline; }
-  .empty { color: var(--muted); padding: 24px 0; }
+  .empty { color: var(--muted); font-style: italic; }
+
+  /* Book detail modal */
+  .overlay { position: fixed; inset: 0; background: rgba(20, 12, 5, .55);
+             display: none; align-items: center; justify-content: center; padding: 20px; }
+  .overlay.show { display: flex; }
+  .modal { background: var(--panel); color: var(--text); max-width: 560px; width: 100%;
+           max-height: 82vh; overflow-y: auto; border-radius: 14px; padding: 24px 26px;
+           border: 1px solid var(--border); box-shadow: 0 18px 50px var(--shadow); }
+  .modal h3 { margin: 0 0 4px; font-size: 1.15rem; padding-right: 30px; }
+  .modal .cat { color: var(--muted); font-size: .82rem; margin-bottom: 12px; }
+  .modal .example { font-style: italic; color: var(--muted); font-size: .9rem; margin-bottom: 10px; }
+  .modal .close { position: absolute; } /* replaced by header button */
+  .modal-top { position: relative; }
+  .xbtn { position: absolute; top: -6px; right: -8px; border: none; background: none;
+          color: var(--muted); font-size: 1.3rem; cursor: pointer; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🛠️ Claude Code Use Cases</h1>
+  <h1>📚 Claude Code Use Cases</h1>
   <div class="sub" id="sub">Loading…</div>
+
   <div class="controls" id="chips">
     <button class="chip on" data-key="all">All</button>
     <button class="chip" data-key="creative">🎨 Creative</button>
@@ -57,65 +126,140 @@
     <button class="chip" data-key="fun">🎉 Fun</button>
     <button class="chip" data-key="painPoint">🩹 Pain point</button>
     <button class="chip" data-key="money">💰 Money</button>
-    <select id="sort">
-      <option value="score">Sort: score</option>
-      <option value="newest">Sort: newest</option>
-    </select>
   </div>
-  <div id="top5"></div>
-  <div id="list"></div>
+
+  <div class="bookcase" id="bookcase"></div>
+
+  <h2>Monthly drawers — 2026</h2>
+  <div class="cabinet">
+    <div class="drawers" id="drawers"></div>
+    <div id="panelSlot"></div>
+  </div>
 </div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modal"></div>
+</div>
+
 <script>
-const BADGES = {creative:"🎨 creative", useful:"✅ useful", fun:"🎉 fun",
-                painPoint:"🩹 pain point", money:"💰 money"};
-let all = [], filter = "all", sortBy = "score";
+const CATEGORIES = ["Personal apps", "Life admin", "Business & money",
+                    "Creative & media", "Knowledge work", "Dev workflows"];
+const CAT_ICONS = {"Personal apps": "🏠", "Life admin": "🗂️", "Business & money": "💼",
+                   "Creative & media": "🎬", "Knowledge work": "🧠", "Dev workflows": "⚙️"};
+const BADGES = {creative: "🎨 creative", useful: "✅ useful", fun: "🎉 fun",
+                painPoint: "🩹 pain point", money: "💰 money"};
+const ICONS = {creative: "🎨", useful: "✅", fun: "🎉", painPoint: "🩹", money: "💰"};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const SPINES = ["#7d4a3f", "#4f6a54", "#54617e", "#8a6a38", "#6b5178", "#3f6b6e",
+                "#96543a", "#5d6b41"];
 
-const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let all = [], filter = "all", openMonth = null, drawerSort = "score";
 
-function card(u, rank) {
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+const matches = u => filter === "all" || u.criteria[filter];
+const month = u => parseInt(u.added.slice(5, 7), 10) - 1;
+
+function renderShelves() {
+  document.getElementById("bookcase").innerHTML = CATEGORIES.map(cat => {
+    const items = all.filter(u => u.category === cat && matches(u));
+    const books = items.map(u => {
+      const color = SPINES[hash(u.id) % SPINES.length];
+      const h = 130 + u.score * 10 + (hash(u.id) % 3) * 9;
+      const icons = Object.keys(ICONS).filter(k => u.criteria[k]).map(k => ICONS[k]).join("");
+      return `<button class="book" data-id="${esc(u.id)}" title="${esc(u.title)}"
+        style="height:${h}px;background:linear-gradient(90deg,${color},${color} 78%,rgba(0,0,0,.25))">
+        <span class="btitle">${esc(u.title)}</span><span class="bicons">${icons}</span>
+      </button>`;
+    }).join("");
+    return `<div class="shelf-label">${CAT_ICONS[cat]} ${esc(cat)} (${items.length})</div>
+      <div class="books">${books || '<span class="empty-shelf">empty shelf — awaiting discoveries</span>'}</div>
+      <div class="shelf-board"></div>`;
+  }).join("");
+}
+
+function cardHTML(u) {
   const badges = Object.keys(BADGES).filter(k => u.criteria[k])
     .map(k => `<span class="badge">${BADGES[k]}</span>`).join("");
   const sources = u.sources.map(s =>
     `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
-  return `<div class="card${rank ? " top" : ""}">
-    <h3>${rank ? `<span class="rank">#${rank}</span>` : ""}${esc(u.title)}</h3>
+  return `<div class="card"><h3>${esc(u.title)}</h3><p>${esc(u.summary)}</p>
+    <div class="badges">${badges}</div>
+    <div class="meta">score ${u.score} · ${esc(u.category)} · ${esc(u.week)} · ${sources}</div></div>`;
+}
+
+function renderDrawers() {
+  document.getElementById("drawers").innerHTML = MONTHS.map((m, i) => {
+    const n = all.filter(u => month(u) === i && matches(u)).length;
+    return `<button class="drawer${openMonth === i ? " open" : ""}" data-month="${i}"
+      ${n === 0 ? "disabled" : ""} aria-expanded="${openMonth === i}">
+      ${m}<span class="count">${n} ${n === 1 ? "case" : "cases"}</span><span class="handle"></span>
+    </button>`;
+  }).join("");
+
+  const slot = document.getElementById("panelSlot");
+  if (openMonth === null) { slot.innerHTML = ""; return; }
+  let items = all.filter(u => month(u) === openMonth && matches(u));
+  items.sort((a, b) => drawerSort === "score"
+    ? b.score - a.score || a.title.localeCompare(b.title)
+    : b.added.localeCompare(a.added) || b.score - a.score);
+  slot.innerHTML = `<div class="drawer-panel">
+    <div class="panel-head"><strong>🗄️ ${MONTHS[openMonth]} 2026 — ${items.length} use case${items.length === 1 ? "" : "s"}</strong>
+      <select id="drawerSort">
+        <option value="score"${drawerSort === "score" ? " selected" : ""}>Sort: score</option>
+        <option value="newest"${drawerSort === "newest" ? " selected" : ""}>Sort: newest</option>
+      </select></div>
+    ${items.length ? items.map(cardHTML).join("") : '<div class="empty">Nothing in this drawer matches the filter.</div>'}
+  </div>`;
+  document.getElementById("drawerSort").addEventListener("change", e => {
+    drawerSort = e.target.value; renderDrawers();
+  });
+}
+
+function openBook(u) {
+  const badges = Object.keys(BADGES).filter(k => u.criteria[k])
+    .map(k => `<span class="badge">${BADGES[k]}</span>`).join("");
+  const sources = u.sources.map(s =>
+    `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
+  document.getElementById("modal").innerHTML = `<div class="modal-top">
+    <button class="xbtn" aria-label="Close">✕</button>
+    <h3>${esc(u.title)}</h3>
+    <div class="cat">${CAT_ICONS[u.category]} ${esc(u.category)} · score ${u.score} · added ${esc(u.added)} (${esc(u.week)})</div>
     <p>${esc(u.summary)}</p>
     ${u.example ? `<div class="example">e.g. ${esc(u.example)}</div>` : ""}
     <div class="badges">${badges}</div>
-    <div class="meta">score ${u.score} · ${esc(u.week)} · ${sources}</div>
-  </div>`;
+    <div class="meta">${sources}</div></div>`;
+  document.getElementById("overlay").classList.add("show");
 }
-
-function render() {
-  const latest = all.length ? all.map(u => u.week).sort().at(-1) : "";
-  const top5 = all.filter(u => u.week === latest)
-    .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title)).slice(0, 5);
-  document.getElementById("top5").innerHTML = top5.length
-    ? `<h2>This week's top 5 (${esc(latest)})</h2>` + top5.map((u, i) => card(u, i + 1)).join("")
-    : "";
-
-  let rest = all.filter(u => filter === "all" || u.criteria[filter]);
-  rest = rest.sort((a, b) => sortBy === "score"
-    ? b.score - a.score || b.added.localeCompare(a.added)
-    : b.added.localeCompare(a.added) || b.score - a.score);
-  document.getElementById("list").innerHTML =
-    `<h2>All collected (${rest.length})</h2>` +
-    (rest.length ? rest.map(u => card(u)).join("") : `<div class="empty">Nothing matches this filter.</div>`);
-}
+function closeModal() { document.getElementById("overlay").classList.remove("show"); }
 
 document.getElementById("chips").addEventListener("click", e => {
   if (!e.target.dataset.key) return;
   filter = e.target.dataset.key;
   document.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c === e.target));
-  render();
+  renderShelves(); renderDrawers();
 });
-document.getElementById("sort").addEventListener("change", e => { sortBy = e.target.value; render(); });
+document.getElementById("bookcase").addEventListener("click", e => {
+  const b = e.target.closest(".book");
+  if (b) openBook(all.find(u => u.id === b.dataset.id));
+});
+document.getElementById("drawers").addEventListener("click", e => {
+  const d = e.target.closest(".drawer");
+  if (!d || d.disabled) return;
+  const m = parseInt(d.dataset.month, 10);
+  openMonth = openMonth === m ? null : m;
+  renderDrawers();
+});
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target.id === "overlay" || e.target.classList.contains("xbtn")) closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
 fetch("data/usecases.json").then(r => r.json()).then(doc => {
   all = doc.usecases;
   document.getElementById("sub").textContent =
-    `${all.length} use cases collected · updated ${doc.updated} · weekly top 5 goes to Telegram`;
-  render();
+    `${all.length} use cases on the shelves · updated ${doc.updated} · weekly top 5 goes to Telegram`;
+  renderShelves(); renderDrawers();
 }).catch(() => {
   document.getElementById("sub").textContent =
     "Could not load data/usecases.json — serve this folder with: python3 -m http.server 8124";
