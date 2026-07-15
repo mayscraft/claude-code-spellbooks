@@ -119,6 +119,66 @@
       ],
       "week": "2026-W29",
       "added": "2026-07-15"
+    },
+    {
+      "id": "tdd-red-green-refactor",
+      "category": "Dev workflows",
+      "title": "TDD with Claude Code: the red-green-refactor loop",
+      "summary": "Developers force Claude Code into strict test-driven development: write a failing test (red), let Claude write the minimum code to pass (green), then refactor with the tests as a safety net. It fixes the classic AI failure mode of writing tests that merely mirror the implementation, and practitioners call it one of the few workflows where the model outperforms most humans.",
+      "example": "Refactoring a 600-line component in under ten minutes while keeping every test green, with characterization tests written first as the safety net.",
+      "recipe": {
+        "how": "Add a TDD rule to CLAUDE.md (or a hook) that forbids implementation before a failing test exists. Then work the loop: describe the behavior, have Claude write the failing test, approve it, and only then let it implement until green.",
+        "tools": ["Claude Code", "a test runner (pytest/vitest/etc.)", "CLAUDE.md rules or hooks"],
+        "difficulty": "one-evening"
+      },
+      "criteria": { "creative": false, "useful": true, "fun": false, "painPoint": true, "money": false },
+      "score": 2,
+      "sources": [
+        { "title": "StackNotice — Claude Code TDD workflow", "url": "https://stacknotice.com/blog/claude-code-tdd-workflow-2026" },
+        { "title": "AY Automate — 8 production workflows", "url": "https://www.ayautomate.com/blog/best-claude-code-workflows" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "obsidian-second-brain",
+      "category": "Knowledge work",
+      "title": "A second brain: Claude Code as librarian of your Obsidian vault",
+      "summary": "An Obsidian vault is just a folder of markdown, so people run Claude Code inside it as a self-organizing knowledge base: drop in any raw source and Claude reads, tags, links, and files it into a connected graph you own. Then you query it in plain language and it pulls mental models from across every discipline you've ever saved.",
+      "example": "The open-source claude-obsidian project, based on Karpathy's LLM-wiki pattern, auto-files anything you drop in as linked plain-markdown notes.",
+      "recipe": {
+        "how": "Open Claude Code inside your Obsidian vault (it's just a folder) and write a short CLAUDE.md describing your structure and note conventions. Feed it raw material — articles, transcripts, ideas — and ask it to file, tag, and cross-link; query the vault in plain language whenever you need to think.",
+        "tools": ["Claude Code", "Obsidian (or any markdown folder)"],
+        "difficulty": "weekend"
+      },
+      "criteria": { "creative": true, "useful": true, "fun": false, "painPoint": true, "money": false },
+      "score": 3,
+      "sources": [
+        { "title": "WhyTryAI — second brain with Claude Code & Obsidian", "url": "https://www.whytryai.com/p/claude-code-obsidian" },
+        { "title": "GitHub — claude-obsidian", "url": "https://github.com/AgriciDaniel/claude-obsidian" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "personal-finance-tracker",
+      "category": "Life admin",
+      "title": "Ditch the budgeting app: bank statements to a private finance dashboard",
+      "summary": "People drop bank statement exports into a folder and have Claude Code categorize transactions, compute savings rates, and build an interactive HTML spending dashboard — processed locally, nothing uploaded. Some log expenses to it in natural language from their phone.",
+      "example": "One writer ditched their budgeting app for Claude plus a spreadsheet and says their spending 'finally stopped spiraling.'",
+      "recipe": {
+        "how": "Export a few months of bank statements (CSV or PDF) into a folder and ask Claude Code to categorize transactions and generate an HTML dashboard with monthly trends and a savings rate. Re-run monthly with new statements; refine the categories as it learns your patterns.",
+        "tools": ["Claude Code", "bank statement exports (CSV/PDF)"],
+        "difficulty": "one-evening"
+      },
+      "criteria": { "creative": false, "useful": true, "fun": false, "painPoint": true, "money": false },
+      "score": 2,
+      "sources": [
+        { "title": "XDA — I ditched my budgeting app for Claude", "url": "https://www.xda-developers.com/ditched-my-budgeting-app-for-claude-and-a-spreadsheet/" },
+        { "title": "Claude Code Playbooks — finance manager", "url": "https://www.claudecodehq.com/playbooks/finance-manager" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
     }
   ]
 }
