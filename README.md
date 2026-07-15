@@ -3,6 +3,9 @@
 *A candlelit archive of what one person can actually do with Claude Code —
 collected weekly, bound as spellbooks, delivered by owl.*
 
+**🔗 Live archive: <https://mayscraft.github.io/claude-code-spellbooks/>**
+(republishes automatically ~2 minutes after every push to `main`)
+
 ---
 
 ## What is this?
