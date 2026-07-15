@@ -221,9 +221,9 @@
     <button class="chip" data-key="fun">🎉 Fun</button>
     <button class="chip" data-key="painPoint">🩹 Pain point</button>
     <button class="chip" data-key="money">💰 Saves money</button>
-    <input id="search" type="search" placeholder="🔮 scry the collection…" aria-label="Search spellbooks">
+    <input id="search" type="search" autocomplete="off" placeholder="🔮 scry the collection…" aria-label="Search spellbooks">
   </div>
-  <div class="whisper ornate" id="whisper" aria-live="polite">✦ ❦ ✦</div>
+  <div class="whisper ornate" id="whisper" aria-live="polite">✦ ❧ ✦ ❦ ✦ ❧ ✦</div>
 
   <div class="bookcase" id="bookcase"></div>
 
@@ -294,7 +294,7 @@ function renderShelves() {
   const revealed = all.filter(matches).length;
   const whisper = document.getElementById("whisper");
   whisper.classList.toggle("ornate", !q);
-  whisper.textContent = !q ? "✦ ❦ ✦"
+  whisper.textContent = !q ? "✦ ❧ ✦ ❦ ✦ ❧ ✦"
     : revealed ? `✨ the glass reveals ${revealed} spell${revealed === 1 ? "" : "s"}…`
     : "✨ the glass clouds over — no spell answers to that word";
 }
