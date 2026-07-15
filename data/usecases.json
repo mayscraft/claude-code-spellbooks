@@ -1,0 +1,87 @@
+{
+  "updated": "2026-07-15",
+  "usecases": [
+    {
+      "id": "audience-of-one-apps",
+      "title": "\"Software for an audience of one\" — hyper-personal micro-apps",
+      "summary": "People vibe-code apps no company would ever ship because the market is exactly one household: a 'Tinder for dinner' decision app for a family with ADHD, a shopping list sorted by their specific grocery store's aisle order, a treadmill remote wired to Google Maps Street View.",
+      "example": "A WHOOP-band tracker that correlates heart-rate spikes with calendar events to rank coworkers by how much stress they cause.",
+      "criteria": { "creative": true, "useful": true, "fun": true, "painPoint": true, "money": false },
+      "score": 4,
+      "sources": [
+        { "title": "XDA Developers — 6 things worth stealing", "url": "https://www.xda-developers.com/most-useful-things-people-built-with-claude-code/" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "life-admin-automation",
+      "title": "Life admin & computer janitor work",
+      "summary": "Pointing Claude Code at your home directory to rename tax invoices to a consistent format, find duplicate files, organize downloads, batch-convert media, and diagnose a slow Mac. It runs locally with file access, so it handles tedious work chat-based AI can't touch.",
+      "example": "Auto-renaming invoices to 'YYYY-MM-DD Vendor - Invoice - Product.pdf' across a messy folder.",
+      "criteria": { "creative": false, "useful": true, "fun": false, "painPoint": true, "money": false },
+      "score": 2,
+      "sources": [
+        { "title": "MakeUseOf — non-coding uses", "url": "https://www.makeuseof.com/cool-ways-i-use-claude-code-that-have-nothing-to-do-with-coding-programming/" },
+        { "title": "Lenny's Newsletter — everyone should use Claude Code", "url": "https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "indie-hacking-shipping",
+      "title": "Indie hacking: shipping revenue-generating products fast",
+      "summary": "Vibe coding went mainstream in 2026: one indie hacker built TrendFeed in 4 days and hit $12K revenue in month one; another reached $62K MRR in under 90 days. Freelancers report shipping client apps in 8 hours instead of 80.",
+      "example": "Anthropic's own head of Claude Code runs five parallel sessions and hasn't hand-written code in months.",
+      "criteria": { "creative": false, "useful": true, "fun": false, "painPoint": true, "money": true },
+      "score": 3,
+      "sources": [
+        { "title": "Superframeworks — Claude Code hits $2.5B ARR", "url": "https://superframeworks.com/articles/claude-code-end-of-coding-era-for-founders" },
+        { "title": "Artificial Corner — make money with Claude", "url": "https://artificialcorner.com/p/money-with-claude" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "non-engineer-knowledge-work",
+      "title": "Non-engineer knowledge work: research, hiring, and sales pipelines",
+      "summary": "PMs, recruiters, and founders synthesize hundreds of customer-call transcripts to validate product assumptions, mine GitHub for qualified sales leads, generate hiring plans and interview rubrics — long-running tasks over big piles of files that a chat window chokes on.",
+      "example": "Analyzing your own meeting recordings to spot patterns like conflict avoidance.",
+      "criteria": { "creative": false, "useful": true, "fun": false, "painPoint": true, "money": false },
+      "score": 2,
+      "sources": [
+        { "title": "Lenny's Newsletter — everyone should use Claude Code", "url": "https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "creative-media-projects",
+      "title": "Creative media projects: audiobooks, games, and extending Claude itself",
+      "summary": "Standout: Alexandria, an open-source tool that turns any e-book into a fully voiced multi-cast audiobook — an LLM annotates speakers and delivery directions, local TTS performs it, voice cloning included. Also popular: retro 2D games and custom MCP servers.",
+      "example": "Alexandria converts epub/txt/md into multi-voice audiobooks entirely locally, exporting MP3/M4B.",
+      "criteria": { "creative": true, "useful": true, "fun": true, "painPoint": false, "money": false },
+      "score": 3,
+      "sources": [
+        { "title": "XDA Developers — 6 things worth stealing", "url": "https://www.xda-developers.com/most-useful-things-people-built-with-claude-code/" },
+        { "title": "KDnuggets — 5 fun projects", "url": "https://www.kdnuggets.com/5-fun-projects-using-claude-code" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "selling-claude-skills",
+      "title": "Selling the meta-layer: Claude Skills bundles and productized services",
+      "summary": "The purest money play isn't building apps — it's selling Claude expertise. One creator made $5K+ in 50 days packaging Claude Skills bundles (SEO writer, thumbnail designer) at ~$99; productized 'AI advisor' services reportedly run up to $30K+/month. Treat income claims with normal skepticism.",
+      "example": "A ~20-skill bundle sold as a $99 digital product, built by voice-transcribing domain knowledge into the skill-creator skill.",
+      "criteria": { "creative": true, "useful": true, "fun": false, "painPoint": false, "money": true },
+      "score": 3,
+      "sources": [
+        { "title": "Ryan Doser — $5K Claude Skills side hustle", "url": "https://ryandoser.com/claude-ai-side-hustle/" },
+        { "title": "AI Business — 7 proven methods", "url": "https://aibusiness.vc/solo/make-money-with-claude-ai" }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+# Claude Code Use Cases tracker
+
+Collects notable Claude Code use cases scored against five criteria —
+**creative, useful, fun, solves a pain point, 💰 money-making (bonus)** —
+displays them on a static page, and sends the weekly top 5 to Telegram.
+
+Static, no-build: plain HTML/CSS/JS + JSON, stdlib-only Python scripts.
+
+## View the page
+
+```sh
+python3 -m http.server 8124
+# open http://localhost:8124
+```
+
+## How it works
+
+- `data/usecases.json` — the data store. Each entry has criteria booleans,
+  a computed `score` (number of true criteria, money included as bonus),
+  sources, and an ISO week stamp (`2026-W29`).
+- `index.html` — displays everything: this week's top 5, plus the full
+  collection with per-criterion filters and sorting.
+- `check_usecases.py` — validates the data (schema, unique ids, score
+  matches criteria). Run after any edit to the JSON.
+- `send_telegram.py` — formats the latest week's top 5 and posts it via
+  the Telegram Bot API. `--dry-run` prints instead of sending.
+- A **weekly scheduled Claude Code task** does live web research for new
+  use cases, appends them (deduped) to the JSON, validates, and runs the
+  Telegram send.
+
+## Telegram setup (once)
+
+1. In Telegram, message **@BotFather** → `/newbot` → follow prompts → copy the token.
+2. `cp config.example.json config.json` and paste the token into `bot_token`.
+3. Send your new bot any message (it can't message you first).
+4. `python3 send_telegram.py --get-chat-id` → put the printed id into `chat_id`.
+5. Test: `python3 send_telegram.py` — you should get the top 5 in Telegram.
+
+`config.json` is gitignored — the token stays local.
