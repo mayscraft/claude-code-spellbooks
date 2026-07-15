@@ -31,6 +31,9 @@
   .chip { border: 1px solid var(--border); background: var(--chip); color: var(--text);
           border-radius: 999px; padding: 5px 14px; cursor: pointer; font-size: .88rem; }
   .chip.on { background: var(--chip-on); border-color: var(--chip-on); color: #fff; }
+  #search { flex: 1; min-width: 170px; border: 1px solid var(--border); background: var(--panel);
+            color: var(--text); border-radius: 999px; padding: 5px 15px; font-size: .88rem; }
+  #search:focus { outline: none; border-color: var(--accent); }
 
   /* Magic bookcase — candlelit alcoves of stacked tomes */
   .bookcase { position: relative; overflow: hidden; border-radius: 14px;
@@ -77,6 +80,15 @@
                   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .tome .ticons { margin-left: auto; flex-shrink: 0; font-size: .72rem; }
   .tome.gilded { border-right: 4px solid #e3c06a; }
+  .tome.fresh { animation: glowpulse 3s ease-in-out infinite; }
+  @keyframes glowpulse {
+    0%, 100% { box-shadow: 0 3px 6px rgba(0,0,0,.55), 0 0 7px rgba(232,200,122,.3); }
+    50% { box-shadow: 0 3px 6px rgba(0,0,0,.55), 0 0 19px rgba(232,200,122,.75); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tome.fresh { animation: none;
+                  box-shadow: 0 3px 6px rgba(0,0,0,.55), 0 0 13px rgba(232,200,122,.55); }
+  }
   .empty-stack { color: #8a7550; font-style: italic; font-size: .82rem;
                  text-align: center; padding: 16px 0 20px; }
   .shelf-lip { height: 10px; margin: 12px -12px 0; border-radius: 0 0 6px 6px;
@@ -134,6 +146,15 @@
   .modal h3 { margin: 0 0 4px; font-size: 1.15rem; padding-right: 30px; }
   .modal .cat { color: var(--muted); font-size: .82rem; margin-bottom: 12px; }
   .modal .example { font-style: italic; color: var(--muted); font-size: .9rem; margin-bottom: 10px; }
+  .recipe { background: var(--chip); border-left: 3px solid #d4af5f; border-radius: 0 8px 8px 0;
+            padding: 10px 14px; margin: 12px 0; }
+  .recipe .rhead { font-weight: 600; font-size: .88rem; margin-bottom: 6px; }
+  .recipe .diff { background: #d4af5f; color: #2a1c08; border-radius: 999px; padding: 1px 9px;
+                  font-size: .72rem; font-weight: 700; margin-left: 6px; }
+  .recipe p { margin: 0 0 6px; font-size: .88rem; }
+  .recipe .rtools { font-size: .8rem; color: var(--muted); }
+  .libnote { background: var(--chip); border-left: 3px solid #d4af5f; border-radius: 0 8px 8px 0;
+             padding: 10px 14px; margin-bottom: 12px; font-size: .9rem; font-style: italic; }
   .modal .close { position: absolute; } /* replaced by header button */
   .modal-top { position: relative; }
   .xbtn { position: absolute; top: -6px; right: -8px; border: none; background: none;
@@ -152,6 +173,7 @@
     <button class="chip" data-key="fun">🎉 Fun</button>
     <button class="chip" data-key="painPoint">🩹 Pain point</button>
     <button class="chip" data-key="money">💰 Money</button>
+    <input id="search" type="search" placeholder="🔎 Search the archive…" aria-label="Search use cases">
   </div>
 
   <div class="bookcase" id="bookcase"></div>
@@ -179,16 +201,23 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 const SPINES = ["#5e2a22", "#3e4a2c", "#27364a", "#4a2c44", "#5a4020", "#2f4a44",
                 "#59331c", "#403050"];
 
-let all = [], filter = "all", openMonth = null, drawerSort = "score";
+let all = [], notes = [], filter = "all", query = "", openMonth = null, drawerSort = "score";
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
-const matches = u => filter === "all" || u.criteria[filter];
+const matches = u => {
+  if (filter !== "all" && !u.criteria[filter]) return false;
+  const q = query.trim().toLowerCase();
+  return !q || [u.title, u.summary, u.example || "", u.category, u.recipe?.how || ""]
+    .join(" ").toLowerCase().includes(q);
+};
 const month = u => parseInt(u.added.slice(5, 7), 10) - 1;
+const latestWeek = () => all.length ? all.map(u => u.week).sort().at(-1) : "";
 
 function renderShelves() {
   const sparkles = Array.from({length: 8}, (_, i) =>
     `<span class="sparkle" style="left:${6 + i * 12}%;top:${8 + (i * 31) % 74}%;animation-delay:${(i * .7).toFixed(1)}s">✦</span>`).join("");
+  const latest = latestWeek();
   const alcoves = CATEGORIES.map(cat => {
     const items = all.filter(u => u.category === cat && matches(u));
     const tomes = items.map(u => {
@@ -199,7 +228,7 @@ function renderShelves() {
       const rot = ((hs >> 2) % 3 - 1) * 0.7;
       const off = (hs >> 4) % 14;
       const icons = Object.keys(ICONS).filter(k => u.criteria[k]).map(k => ICONS[k]).join("");
-      return `<button class="tome${u.criteria.money ? " gilded" : ""}" data-id="${esc(u.id)}" title="${esc(u.title)}"
+      return `<button class="tome${u.criteria.money ? " gilded" : ""}${u.week === latest ? " fresh" : ""}" data-id="${esc(u.id)}" title="${esc(u.title)}"
         style="height:${h}px;width:${w}%;margin-left:${off}px;transform:rotate(${rot}deg);
         background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.3)), ${color}">
         <span class="ttitle">${esc(u.title)}</span><span class="ticons">${icons}</span>
@@ -220,7 +249,7 @@ function cardHTML(u) {
     `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
   return `<div class="card"><h3>${esc(u.title)}</h3><p>${esc(u.summary)}</p>
     <div class="badges">${badges}</div>
-    <div class="meta">score ${u.score} · ${esc(u.category)} · ${esc(u.week)} · ${sources}</div></div>`;
+    <div class="meta">score ${u.score} · ${esc(u.category)} · 📜 ${esc(u.recipe?.difficulty || "?")} · ${esc(u.week)} · ${sources}</div></div>`;
 }
 
 function renderDrawers() {
@@ -238,12 +267,15 @@ function renderDrawers() {
   items.sort((a, b) => drawerSort === "score"
     ? b.score - a.score || a.title.localeCompare(b.title)
     : b.added.localeCompare(a.added) || b.score - a.score);
+  const monthKey = `2026-${String(openMonth + 1).padStart(2, "0")}`;
+  const note = notes.find(n => n.month === monthKey);
   slot.innerHTML = `<div class="drawer-panel">
     <div class="panel-head"><strong>🗄️ ${MONTHS[openMonth]} 2026 — ${items.length} use case${items.length === 1 ? "" : "s"}</strong>
       <select id="drawerSort">
         <option value="score"${drawerSort === "score" ? " selected" : ""}>Sort: score</option>
         <option value="newest"${drawerSort === "newest" ? " selected" : ""}>Sort: newest</option>
       </select></div>
+    ${note ? `<div class="libnote">🪶 Librarian's note — ${esc(note.text)}</div>` : ""}
     ${items.length ? items.map(cardHTML).join("") : '<div class="empty">Nothing in this drawer matches the filter.</div>'}
   </div>`;
   document.getElementById("drawerSort").addEventListener("change", e => {
@@ -262,12 +294,18 @@ function openBook(u) {
     <div class="cat">${CAT_ICONS[u.category]} ${esc(u.category)} · score ${u.score} · added ${esc(u.added)} (${esc(u.week)})</div>
     <p>${esc(u.summary)}</p>
     ${u.example ? `<div class="example">e.g. ${esc(u.example)}</div>` : ""}
+    ${u.recipe ? `<div class="recipe"><div class="rhead">📜 How to cast it<span class="diff">${esc(u.recipe.difficulty)}</span></div>
+      <p>${esc(u.recipe.how)}</p>
+      <div class="rtools">🧰 ${u.recipe.tools.map(esc).join(" · ")}</div></div>` : ""}
     <div class="badges">${badges}</div>
     <div class="meta">${sources}</div></div>`;
   document.getElementById("overlay").classList.add("show");
 }
 function closeModal() { document.getElementById("overlay").classList.remove("show"); }
 
+document.getElementById("search").addEventListener("input", e => {
+  query = e.target.value; renderShelves(); renderDrawers();
+});
 document.getElementById("chips").addEventListener("click", e => {
   if (!e.target.dataset.key) return;
   filter = e.target.dataset.key;
@@ -292,6 +330,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 
 fetch("data/usecases.json").then(r => r.json()).then(doc => {
   all = doc.usecases;
+  notes = doc.librarianNotes || [];
   document.getElementById("sub").textContent =
     `${all.length} use cases on the shelves · updated ${doc.updated} · weekly top 5 goes to Telegram`;
   renderShelves(); renderDrawers();
