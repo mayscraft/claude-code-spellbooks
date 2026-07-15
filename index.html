@@ -29,6 +29,11 @@
        letter-spacing: .01em; }
   .sub { color: var(--muted); margin-bottom: 20px; font-style: italic;
          font-family: Georgia, "Times New Roman", serif; }
+  .sub a { color: var(--accent); text-decoration: none; }
+  .sub a:hover { text-decoration: underline; }
+  .about h4 { margin: 14px 0 4px; font-size: .95rem; }
+  .about p, .about li { font-size: .9rem; margin: 0 0 6px; }
+  .about ul { margin: 0; padding-left: 20px; }
   .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   .chip { border: 1px solid var(--border); background: var(--chip); color: var(--text);
           border-radius: 999px; padding: 5px 14px; cursor: pointer; font-size: .88rem; }
@@ -166,7 +171,7 @@
 <body>
 <div class="wrap">
   <h1>🪄 Claude Code Personal Spellbooks</h1>
-  <div class="sub" id="sub">Loading…</div>
+  <div class="sub"><span id="sub">Loading…</span> · <a href="#" id="aboutLink">📜 read me first</a></div>
 
   <div class="controls" id="chips">
     <button class="chip on" data-key="all">All</button>
@@ -304,6 +309,39 @@ function openBook(u) {
   document.getElementById("overlay").classList.add("show");
 }
 function closeModal() { document.getElementById("overlay").classList.remove("show"); }
+
+function openAbout() {
+  document.getElementById("modal").innerHTML = `<div class="modal-top about">
+    <button class="xbtn" aria-label="Close">✕</button>
+    <h3>📜 Read me first</h3>
+    <p>This is an archive of <b>personal & productivity things people do with
+    Claude Code</b> — each one shelved as a spellbook, each with a recipe so
+    you can cast it yourself. Nothing here needs a startup, a budget, or a
+    team: every spell is castable by one person in an evening or a weekend.</p>
+    <h4>How to browse</h4>
+    <ul>
+      <li><b>Click any tome</b> to open it: what it does, a real example, and
+      the 📜 recipe (how, tools, time needed).</li>
+      <li><b>Pull open a month drawer</b> below to see what was discovered
+      that month, plus the librarian's month-end note.</li>
+      <li><b>Filter or search</b> with the chips and search box up top —
+      they work on shelves and drawers alike.</li>
+      <li><b>Glowing books</b> are this week's new arrivals. Gilt-edged ones
+      💰 save you money. Thicker spines scored higher.</li>
+    </ul>
+    <h4>Where the spells come from</h4>
+    <p>Every Monday an AI librarian researches the week's discoveries across
+    the web, keeps only what's genuinely new and worth casting, and shelves
+    it here — scored on five criteria: 🎨 creative, ✅ useful, 🎉 fun,
+    🩹 solves a pain point, 💰 saves money. The week's top 5 arrive by owl
+    (Telegram).</p>
+    <p><i>The goal: by December, twelve drawers of small, castable magic.</i></p>
+  </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
+document.getElementById("aboutLink").addEventListener("click", e => {
+  e.preventDefault(); openAbout();
+});
 
 document.getElementById("search").addEventListener("input", e => {
   query = e.target.value; renderShelves(); renderDrawers();
