@@ -31,9 +31,6 @@
   h1 { margin: 0 0 4px; font-size: 1.85rem; letter-spacing: .015em; }
   h1 .h1-spark { display: inline-block; animation: twinkle 3.2s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) { h1 .h1-spark { animation: none; } }
-  .flourish { text-align: center; color: #b08d3e; margin: 0 0 18px; font-size: .95rem;
-              letter-spacing: .5em; text-indent: .5em;
-              text-shadow: 0 0 8px rgba(212, 175, 95, .4); }
   .sub { color: var(--muted); margin-bottom: 20px; font-style: italic;
          font-family: Georgia, "Times New Roman", serif; }
   .sub a { color: var(--accent); text-decoration: none; }
@@ -41,7 +38,7 @@
   .about h4 { margin: 14px 0 4px; font-size: .95rem; }
   .about p, .about li { font-size: .9rem; margin: 0 0 6px; }
   .about ul { margin: 0; padding-left: 20px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
   .chip { border: 1px solid var(--border); background: var(--chip); color: var(--text);
           border-radius: 999px; padding: 5px 14px; cursor: pointer; font-size: .88rem; }
   .chip.on { background: var(--chip-on); border-color: var(--chip-on); color: #fff; }
@@ -54,9 +51,11 @@
   #search::placeholder { color: #a08c62; opacity: 1; }
   #search:focus { outline: none; border-color: #e3c06a;
             box-shadow: inset 0 2px 6px rgba(0,0,0,.55), 0 0 14px rgba(232,200,122,.5); }
-  .whisper { min-height: 22px; margin: -14px 0 14px; color: #a4854a;
-             font-family: Georgia, "Times New Roman", serif; font-style: italic;
-             font-size: .85rem; }
+  .whisper { min-height: 22px; margin: 0 0 8px; color: #a4854a;
+             text-align: center; font-style: italic; font-size: .85rem; }
+  .whisper.ornate { color: #b08d3e; font-style: normal; font-size: .9rem;
+             letter-spacing: .5em; text-indent: .5em;
+             text-shadow: 0 0 8px rgba(212, 175, 95, .4); }
 
   /* Magic bookcase — candlelit alcoves of stacked tomes */
   .bookcase { position: relative; overflow: hidden; border-radius: 14px;
@@ -224,8 +223,7 @@
     <button class="chip" data-key="money">💰 Saves money</button>
     <input id="search" type="search" placeholder="🔮 scry the collection…" aria-label="Search spellbooks">
   </div>
-  <div class="whisper" id="whisper" aria-live="polite"></div>
-  <div class="flourish" aria-hidden="true">✦ ❦ ✦</div>
+  <div class="whisper ornate" id="whisper" aria-live="polite">✦ ❦ ✦</div>
 
   <div class="bookcase" id="bookcase"></div>
 
@@ -294,7 +292,9 @@ function renderShelves() {
 
   const q = query.trim();
   const revealed = all.filter(matches).length;
-  document.getElementById("whisper").textContent = !q ? ""
+  const whisper = document.getElementById("whisper");
+  whisper.classList.toggle("ornate", !q);
+  whisper.textContent = !q ? "✦ ❦ ✦"
     : revealed ? `✨ the glass reveals ${revealed} spell${revealed === 1 ? "" : "s"}…`
     : "✨ the glass clouds over — no spell answers to that word";
 }
