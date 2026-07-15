@@ -1,6 +1,11 @@
 {
   "updated": "2026-07-15",
-  "librarianNotes": [],
+  "librarianNotes": [
+    {
+      "month": "2026-07",
+      "text": "The archive opened its doors this month, and what a founding it was: sixteen spells bound in a single July week. Midway through, we made a choice that will shape every shelf to come — this is a library of personal magic now, and the empire-builders were kindly shown the door. Life admin runs the busiest shelf at five tomes, and I notice the strongest spells share one trick: they remember things about their caster. Best find of the month: the fitness plan that reads your sleep and quietly reschedules your training — magic that meets you where you actually are. — the librarian"
+    }
+  ],
   "usecases": [
     {
       "id": "audience-of-one-apps",

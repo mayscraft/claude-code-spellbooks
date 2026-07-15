@@ -78,11 +78,15 @@ def main() -> int:
             if not s.get("title") or not str(s.get("url", "")).startswith(("http://", "https://")):
                 errors.append(f"{label}: each source needs a title and http(s) url")
 
+    note_months = set()
     for i, note in enumerate(doc.get("librarianNotes", [])):
         if not MONTH_RE.match(note.get("month", "")):
             errors.append(f"librarianNotes[{i}]: month must be YYYY-MM")
         if not note.get("text"):
             errors.append(f"librarianNotes[{i}]: text must be non-empty")
+        if note.get("month") in note_months:
+            errors.append(f"librarianNotes[{i}]: duplicate month {note.get('month')}")
+        note_months.add(note.get("month"))
 
     if errors:
         print(f"FAIL: {len(errors)} problem(s) in {DATA.name}:")
