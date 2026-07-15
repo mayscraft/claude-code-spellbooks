@@ -12,9 +12,11 @@ from pathlib import Path
 
 DATA = Path(__file__).parent / "data" / "usecases.json"
 CRITERIA = ["creative", "useful", "fun", "painPoint", "money"]
+CATEGORIES = ["Personal apps", "Life admin", "Business & money",
+              "Creative & media", "Knowledge work", "Dev workflows"]
 WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-REQUIRED = ["id", "title", "summary", "criteria", "score", "sources", "week", "added"]
+REQUIRED = ["id", "title", "category", "summary", "criteria", "score", "sources", "week", "added"]
 
 
 def main() -> int:
@@ -38,6 +40,8 @@ def main() -> int:
         for field in REQUIRED:
             if field not in uc:
                 errors.append(f"{label}: missing field '{field}'")
+        if uc.get("category") not in CATEGORIES:
+            errors.append(f"{label}: category must be one of {CATEGORIES}")
         crit = uc.get("criteria", {})
         if sorted(crit.keys()) != sorted(CRITERIA):
             errors.append(f"{label}: criteria keys must be exactly {CRITERIA}")

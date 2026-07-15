@@ -15,11 +15,15 @@ python3 -m http.server 8124
 
 ## How it works
 
-- `data/usecases.json` — the data store. Each entry has criteria booleans,
-  a computed `score` (number of true criteria, money included as bonus),
-  sources, and an ISO week stamp (`2026-W29`).
-- `index.html` — displays everything: this week's top 5, plus the full
-  collection with per-criterion filters and sorting.
+- `data/usecases.json` — the data store. Each entry has a `category` (one of:
+  Personal apps, Life admin, Business & money, Creative & media,
+  Knowledge work, Dev workflows), criteria booleans, a computed `score`
+  (number of true criteria, money included as bonus), sources, and an ISO
+  week stamp (`2026-W29`).
+- `index.html` — a bookshelf: one shelf per category with each use case as
+  a book spine (click a book for details), a cabinet of monthly drawers
+  (Jan–Dec) that open to show what was collected that month, and criteria
+  filters that apply to both shelves and drawers.
 - `check_usecases.py` — validates the data (schema, unique ids, score
   matches criteria). Run after any edit to the JSON.
 - `send_telegram.py` — formats the latest week's top 5 and posts it via
