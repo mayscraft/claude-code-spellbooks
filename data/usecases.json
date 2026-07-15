@@ -552,6 +552,110 @@
       ],
       "week": "2026-W29",
       "added": "2026-07-15"
+    },
+    {
+      "id": "home-assistant-conjuror",
+      "category": "Personal apps",
+      "title": "The Home Assistant Conjuror",
+      "summary": "Point Claude Code at your Home Assistant setup and describe automations in plain English — it writes and validates the YAML (or Python API scripts), uploads them, reloads the config, and commits to git in one flow. People have furnished whole houses this way: adaptive lighting across 60+ bulbs, water-leak alerts, presence-based lighting, appliance-done notifications — and audited existing setups to surface automations that had been silently broken for months.",
+      "example": "A new homeowner set up scenes, room-by-room adaptive color temperature, and humidity-triggered bathroom fans from zero, open-sourcing the whole config as idempotent Python scripts (ha-config-as-code).",
+      "recipe": {
+        "how": "Bridge Claude Code to Home Assistant (a HA add-on, or scripts that hit its REST/WebSocket API) and keep your config in a git repo for easy rollback. Describe the automation you want in plain English and let Claude write, validate, and reload it — start by asking it to audit your existing setup for things silently broken.",
+        "tools": [
+          "Claude Code",
+          "Home Assistant",
+          "a git repo for your config"
+        ],
+        "difficulty": "weekend"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": true,
+        "painPoint": true,
+        "money": false
+      },
+      "score": 4,
+      "sources": [
+        {
+          "title": "Home Assistant Community — building my smart home from scratch with Claude Code",
+          "url": "https://community.home-assistant.io/t/building-my-smart-home-from-scratch-with-claude-code-home-assistant/994464"
+        },
+        {
+          "title": "XDA — Home Assistant was missing half its potential until Claude Code",
+          "url": "https://www.xda-developers.com/home-assistant-missing-half-potential-until-claude-code-showed-me-what-it-could-actually-do/"
+        }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "subscription-exorcist",
+      "category": "Money & budgeting",
+      "title": "The Subscription Exorcist",
+      "summary": "A growing crowd is canceling monthly SaaS and rebuilding the same features as plain-text folders governed by a CLAUDE.md rules file. One writer replaced Notion and Microsoft 365 plus four read-it-later apps (Pocket, Instapaper, Readwise, Raindrop) with a queue.md / archive.md / notes.md system; another swapped Canva, Figma, and an AI scheduler for Claude skills and a calendar connector.",
+      "example": "queue.md for unread links, archive.md for keepers, inline #tags instead of a database — full-text searchable, and roughly $40 a month of subscriptions gone.",
+      "recipe": {
+        "how": "List the paid apps you actually use and what each really does for you. For each, recreate the core as a folder of markdown with a CLAUDE.md setting the rules — a read-later queue, a notes/tasks system, meeting-note and weekly-review skills — then cancel the subscription once the plain-text version has stuck for a week.",
+        "tools": [
+          "Claude Code",
+          "a folder of markdown files",
+          "CLAUDE.md rules and a few skills"
+        ],
+        "difficulty": "weekend"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": false,
+        "painPoint": true,
+        "money": true
+      },
+      "score": 4,
+      "sources": [
+        {
+          "title": "XDA — I replaced five paid subscriptions with Claude, none were coding tools",
+          "url": "https://www.xda-developers.com/replaced-five-paid-subscriptions-with-claude-none-were-coding-tools/"
+        },
+        {
+          "title": "XDA — I ditched my productivity stack for Claude Code",
+          "url": "https://www.xda-developers.com/ditched-productivity-stack-for-claude-code-it-does-everything-paid-tools-do/"
+        }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
+    },
+    {
+      "id": "shared-garden-ward",
+      "category": "Personal apps",
+      "title": "The Shared-Garden Ward",
+      "summary": "Non-coders are shipping tiny household-coordination apps as installable PWAs — no App Store, no developer account. A designer who had never built an app made a shared plant-watering tracker so she and her partner stop double-watering: a garden profile, per-plant schedules, one-tap 'done', and a 'who watered last' view.",
+      "example": "A plant-care PWA installed straight to the iPhone home screen via Safari, built from Figma mockups fed to Claude Code with a free Supabase backend and Vercel hosting.",
+      "recipe": {
+        "how": "Sketch the one screen you need in Figma (or just describe it) and hand it to Claude Code to build a Progressive Web App with a free Supabase backend and Vercel hosting. Install it to your phone's home screen straight from the browser — no Apple developer account required.",
+        "tools": [
+          "Claude Code",
+          "Figma or a rough sketch",
+          "free Supabase + Vercel"
+        ],
+        "difficulty": "weekend"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": true,
+        "painPoint": true,
+        "money": false
+      },
+      "score": 4,
+      "sources": [
+        {
+          "title": "Bootcamp (Medium) — a designer's first attempt at building with Claude Code",
+          "url": "https://medium.com/design-bootcamp/a-designers-first-attempt-at-building-with-claude-code-571686dfa17f"
+        }
+      ],
+      "week": "2026-W29",
+      "added": "2026-07-15"
     }
   ]
 }
