@@ -18,12 +18,17 @@ python3 -m http.server 8124
 - `data/usecases.json` — the data store. Each entry has a `category` (one of:
   Personal apps, Life admin, Business & money, Creative & media,
   Knowledge work, Dev workflows), criteria booleans, a computed `score`
-  (number of true criteria, money included as bonus), sources, and an ISO
-  week stamp (`2026-W29`).
-- `index.html` — a bookshelf: one shelf per category with each use case as
-  a book spine (click a book for details), a cabinet of monthly drawers
-  (Jan–Dec) that open to show what was collected that month, and criteria
-  filters that apply to both shelves and drawers.
+  (number of true criteria, money included as bonus), a `recipe`
+  (`how` to replicate it, `tools` list, `difficulty`: one-evening /
+  weekend / ongoing), sources, and an ISO week stamp (`2026-W29`).
+  A top-level `librarianNotes` array holds month-end reflections
+  (`{month: "YYYY-MM", text}`), written by the weekly task on the last
+  run of each month.
+- `index.html` — a candlelit archive: one alcove per category with use
+  cases as stacked tomes (click one for details + its replication recipe;
+  the newest week's tomes glow), a cabinet of monthly drawers (Jan–Dec)
+  that open to show that month's collection and librarian's note, plus
+  criteria filters and a search box that apply to both.
 - `check_usecases.py` — validates the data (schema, unique ids, score
   matches criteria). Run after any edit to the JSON.
 - `send_telegram.py` — formats the latest week's top 5 and posts it via

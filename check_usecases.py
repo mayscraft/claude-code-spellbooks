@@ -14,9 +14,11 @@ DATA = Path(__file__).parent / "data" / "usecases.json"
 CRITERIA = ["creative", "useful", "fun", "painPoint", "money"]
 CATEGORIES = ["Personal apps", "Life admin", "Business & money",
               "Creative & media", "Knowledge work", "Dev workflows"]
+DIFFICULTIES = ["one-evening", "weekend", "ongoing"]
 WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-REQUIRED = ["id", "title", "category", "summary", "criteria", "score", "sources", "week", "added"]
+MONTH_RE = re.compile(r"^\d{4}-\d{2}$")
+REQUIRED = ["id", "title", "category", "summary", "criteria", "score", "recipe", "sources", "week", "added"]
 
 
 def main() -> int:
@@ -51,6 +53,17 @@ def main() -> int:
             expected = sum(crit.values())
             if uc.get("score") != expected:
                 errors.append(f"{label}: score {uc.get('score')} != computed {expected}")
+        rec = uc.get("recipe")
+        if not isinstance(rec, dict):
+            errors.append(f"{label}: recipe must be an object with how/tools/difficulty")
+        else:
+            if not rec.get("how"):
+                errors.append(f"{label}: recipe.how must be a non-empty string")
+            tools = rec.get("tools")
+            if not tools or not all(isinstance(t, str) and t for t in tools):
+                errors.append(f"{label}: recipe.tools must be a non-empty list of strings")
+            if rec.get("difficulty") not in DIFFICULTIES:
+                errors.append(f"{label}: recipe.difficulty must be one of {DIFFICULTIES}")
         if uc.get("id") in seen_ids:
             errors.append(f"{label}: duplicate id")
         seen_ids.add(uc.get("id"))
@@ -64,6 +77,12 @@ def main() -> int:
         for s in srcs:
             if not s.get("title") or not str(s.get("url", "")).startswith(("http://", "https://")):
                 errors.append(f"{label}: each source needs a title and http(s) url")
+
+    for i, note in enumerate(doc.get("librarianNotes", [])):
+        if not MONTH_RE.match(note.get("month", "")):
+            errors.append(f"librarianNotes[{i}]: month must be YYYY-MM")
+        if not note.get("text"):
+            errors.append(f"librarianNotes[{i}]: text must be non-empty")
 
     if errors:
         print(f"FAIL: {len(errors)} problem(s) in {DATA.name}:")
