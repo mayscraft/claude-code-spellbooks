@@ -1,8 +1,10 @@
-# Claude Code Use Cases tracker
+# Claude Code Spellbooks
 
-Collects notable Claude Code use cases scored against five criteria —
+A use-case tracker with a Harry Potter spellbook theme: collects notable
+Claude Code use cases ("spells") scored against five criteria —
 **creative, useful, fun, solves a pain point, 💰 money-making (bonus)** —
-displays them on a static page, and sends the weekly top 5 to Telegram.
+shelves them in a candlelit archive on a static page, and sends the
+weekly top 5 to Telegram.
 
 Static, no-build: plain HTML/CSS/JS + JSON, stdlib-only Python scripts.
 

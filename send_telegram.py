@@ -62,7 +62,7 @@ def top5_latest_week():
 
 def build_message():
     week, top5 = top5_latest_week()
-    lines = [f"\U0001f6e0 <b>Claude Code use cases — {week} top 5</b>", ""]
+    lines = [f"\U0001fa84 <b>Claude Code Spellbooks — {week}: this week's top 5 spells</b>", ""]
     for rank, u in enumerate(top5, 1):
         src = u["sources"][0]
         badges = " · ".join(label for key, label in BADGES if u["criteria"][key])
