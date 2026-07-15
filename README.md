@@ -1,4 +1,4 @@
-# Claude Code Spellbooks
+# Claude Code Personal Spellbooks
 
 A use-case tracker with a Harry Potter spellbook theme: collects notable
 **personal & productivity** Claude Code use cases ("spells") scored
