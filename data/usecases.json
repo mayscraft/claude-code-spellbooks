@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15",
+  "updated": "2026-07-24",
   "librarianNotes": [
     {
       "month": "2026-07",
@@ -656,6 +656,102 @@
       ],
       "week": "2026-W29",
       "added": "2026-07-15"
+    },
+    {
+      "id": "compounding-archive",
+      "category": "Knowledge work",
+      "title": "The Compounding Archive",
+      "summary": "Beyond daily journaling prompts, casters are turning years of old notebooks into archives that answer back. Claude Code imports past journals into structured markdown with quote indexes and theme files, then resurfaces the right old entry when a new one echoes it — so the journal compounds instead of rotting in a drawer.",
+      "example": "Wren Dougherty's open-source system: /start-day and /end-week commands file entries into predictable folders, weekly reviews build an index layer, and questions like 'how has my thinking about work changed?' get answered from the archive — with a gitignored private/ folder and commit hooks guarding the sensitive bits.",
+      "recipe": {
+        "how": "Start from the open-source compound-journaling setup: a git repo of markdown folders with templates, slash commands for daily and weekly rituals, and an import pass where Claude Code converts old journals into indexed, themed files. Human-readable summaries do the recall work — no vector database needed.",
+        "tools": [
+          "Claude Code",
+          "markdown files in a git repo",
+          "your old journals"
+        ],
+        "difficulty": "ongoing"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": false,
+        "painPoint": true,
+        "money": false
+      },
+      "score": 3,
+      "sources": [
+        {
+          "title": "Wrench at Work — Compound Journaling with Claude Code",
+          "url": "https://wrenchatwork.substack.com/p/compound-journaling-with-claude-code"
+        }
+      ],
+      "week": "2026-W30",
+      "added": "2026-07-24"
+    },
+    {
+      "id": "alphabet-locomotive",
+      "category": "Creative & media",
+      "title": "The Alphabet Locomotive",
+      "summary": "Parents are conjuring bespoke learning apps for exactly one child in an afternoon. One dad built a Thomas the Tank Engine ABC app for his son — every letter a beloved character — tended 'like a stew' between breakfast and dinner while watching football, no ads, no in-app purchases, just his kid's actual obsession.",
+      "example": "A is for Annie, B is for Bertie: Claude Code wrote the app from a short spec, ElevenLabs voiced the letters, DALL-E invented a 'Zhao' when no Z engine existed, and dad recorded the train whistle himself.",
+      "recipe": {
+        "how": "Write a one-page spec of the app your kid actually wants, then let Claude Code build it in small verified increments while you gather assets. Generate narration with a text-to-speech tool and fill any missing characters with an image generator. Ship it to the family tablet by dinnertime.",
+        "tools": [
+          "Claude Code",
+          "a text-to-speech tool (e.g. ElevenLabs)",
+          "an image generator for missing assets"
+        ],
+        "difficulty": "one-evening"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": true,
+        "painPoint": false,
+        "money": false
+      },
+      "score": 3,
+      "sources": [
+        {
+          "title": "Rob Hunter — Thomas the Tank Engine ABCs",
+          "url": "https://robbobobbo.substack.com/p/thomas-the-tank-engine-abcs"
+        }
+      ],
+      "week": "2026-W30",
+      "added": "2026-07-24"
+    },
+    {
+      "id": "scholars-familiar",
+      "category": "Knowledge work",
+      "title": "The Scholar's Familiar",
+      "summary": "A /research command that spawns sub-agents to sweep your fields every morning — niche news, new papers, Hacker News — and files a synthesized digest into Obsidian. The same familiar turns dense academic papers into two-page layman's PDFs sent to a Kindle, so the reading pile actually gets read.",
+      "example": "Joe Sack's daily digest checks SQL Server news, AI papers, and Hacker News before he's had coffee; he refined the skill over 300 iterations and reckons the equivalent API spend would be ~$30,000 against his $200/month plan.",
+      "recipe": {
+        "how": "Define a /research skill that lists your beats (topics, feeds, communities) and have it spawn a sub-agent per beat, then synthesize one digest note into your Obsidian vault. Add a second command that condenses any paper PDF into a short plain-language version for Kindle reading. Expect to refine the prompts over many mornings.",
+        "tools": [
+          "Claude Code",
+          "Obsidian (or any notes folder)",
+          "optionally a Kindle for the paper summaries"
+        ],
+        "difficulty": "weekend"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": false,
+        "painPoint": true,
+        "money": false
+      },
+      "score": 3,
+      "sources": [
+        {
+          "title": "Joe Sack — My $200 Research Assistant",
+          "url": "https://joesack.substack.com/p/my-200-research-assistant"
+        }
+      ],
+      "week": "2026-W30",
+      "added": "2026-07-24"
     }
   ]
 }
