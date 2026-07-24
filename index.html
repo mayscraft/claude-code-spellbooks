@@ -216,6 +216,7 @@
 
   <div class="controls" id="chips">
     <button class="chip on" data-key="all">All</button>
+    <button class="chip" data-key="fresh">✨ New arrivals</button>
     <button class="chip" data-key="creative">🎨 Creative</button>
     <button class="chip" data-key="useful">✅ Useful</button>
     <button class="chip" data-key="fun">🎉 Fun</button>
@@ -255,7 +256,8 @@ let all = [], notes = [], filter = "all", query = "", openMonth = null, drawerSo
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 const matches = u => {
-  if (filter !== "all" && !u.criteria[filter]) return false;
+  if (filter === "fresh") { if (u.week !== latestWeek()) return false; }
+  else if (filter !== "all" && !u.criteria[filter]) return false;
   const q = query.trim().toLowerCase();
   return !q || [u.title, u.summary, u.example || "", u.category, u.recipe?.how || ""]
     .join(" ").toLowerCase().includes(q);
@@ -280,7 +282,7 @@ function renderShelves() {
       return `<button class="tome${u.criteria.money ? " gilded" : ""}${u.week === latest ? " fresh" : ""}" data-id="${esc(u.id)}" title="${esc(u.title)}"
         style="height:${h}px;width:${w}%;margin-left:${off}px;transform:rotate(${rot}deg);
         background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.3)), ${color}">
-        <span class="ttitle">${esc(u.title)}</span><span class="ticons">${icons}</span>
+        <span class="ttitle">${esc(u.title)}</span><span class="ticons">${u.week === latest ? "✨" : ""}${icons}</span>
       </button>`;
     }).join("");
     return `<div class="alcove"><div class="plaque">${CAT_ICONS[cat]} ${esc(cat)} · ${items.length}</div>
@@ -300,7 +302,8 @@ function renderShelves() {
 }
 
 function cardHTML(u) {
-  const badges = Object.keys(BADGES).filter(k => u.criteria[k])
+  const badges = (u.week === latestWeek() ? '<span class="badge">✨ new this week</span>' : "")
+    + Object.keys(BADGES).filter(k => u.criteria[k])
     .map(k => `<span class="badge">${BADGES[k]}</span>`).join("");
   const sources = u.sources.map(s =>
     `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
@@ -344,7 +347,8 @@ function renderDrawers() {
 }
 
 function openBook(u) {
-  const badges = Object.keys(BADGES).filter(k => u.criteria[k])
+  const badges = (u.week === latestWeek() ? '<span class="badge">✨ new this week</span>' : "")
+    + Object.keys(BADGES).filter(k => u.criteria[k])
     .map(k => `<span class="badge">${BADGES[k]}</span>`).join("");
   const sources = u.sources.map(s =>
     `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
@@ -379,8 +383,9 @@ function openAbout() {
       that month, plus the librarian's month-end note.</li>
       <li><b>Filter or search</b> with the chips and search box up top —
       they work on shelves and drawers alike.</li>
-      <li><b>Glowing books</b> are this week's new arrivals. Gilt-edged ones
-      💰 save you money. Thicker spines scored higher.</li>
+      <li><b>Glowing books marked ✨</b> are this week's new arrivals — the
+      ✨ chip up top shows only them. Gilt-edged ones 💰 save you money.
+      Thicker spines scored higher.</li>
     </ul>
     <h4>Where the spells come from</h4>
     <p>Every Monday an AI librarian researches the week's discoveries across
