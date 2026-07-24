@@ -752,6 +752,38 @@
       ],
       "week": "2026-W30",
       "added": "2026-07-24"
+    },
+    {
+      "id": "poolkeepers-ward",
+      "category": "Personal apps",
+      "title": "The Poolkeeper's Ward",
+      "summary": "A pool owner built a full smart-home app to run his own pool from Claude Code in a terminal — no IDE at all. Around 40 device capabilities plus a water-chemistry engine (Langelier Saturation Index) that watches for corrosive water before it eats the heat exchanger, with test-driven development enforced by an agentic loop.",
+      "example": "The 'Violet + BADU Blue Pool Control' Homey app: ~30-40 hours of evening work over two weeks, versus an estimated 150-250 spare-time hours solo — the Superpowers skill gated every change behind tests, systematic debugging, and code review, and he ended up sharing it in the Homey community store.",
+      "recipe": {
+        "how": "Point Claude Code at your smart-home platform's SDK (Homey, Home Assistant, etc.) and describe the device you want to control. Add a discipline skill like Superpowers so every capability lands with tests before moving on, and encode any domain safety rules (like water-chemistry thresholds) as their own checked module.",
+        "tools": [
+          "Claude Code",
+          "your smart-home hub's SDK/CLI",
+          "a TDD discipline skill (e.g. Superpowers)"
+        ],
+        "difficulty": "ongoing"
+      },
+      "criteria": {
+        "creative": true,
+        "useful": true,
+        "fun": false,
+        "painPoint": true,
+        "money": false
+      },
+      "score": 3,
+      "sources": [
+        {
+          "title": "Homey Community — How I built a Homey app without an IDE, with Claude Code and an agentic loop",
+          "url": "https://community.homey.app/t/how-i-built-a-homey-app-without-an-ide-with-claude-code-superpowers-skill-and-an-agentic-development-loop/157110"
+        }
+      ],
+      "week": "2026-W30",
+      "added": "2026-07-24"
     }
   ]
 }
