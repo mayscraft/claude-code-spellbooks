@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22",
+  "updated": "2026-09-23",
   "librarianNotes": [
     {
       "month": "2026-07",
@@ -816,7 +816,8 @@
         }
       ],
       "week": "2026-W39",
-      "added": "2026-09-22"
+      "added": "2026-09-22",
+      "sourceDate": "2026-01"
     },
     {
       "id": "ancestor-scrying",
@@ -853,7 +854,8 @@
         }
       ],
       "week": "2026-W39",
-      "added": "2026-09-22"
+      "added": "2026-09-22",
+      "sourceDate": "2026-03"
     },
     {
       "id": "blood-ledger",
@@ -889,79 +891,8 @@
         }
       ],
       "week": "2026-W39",
-      "added": "2026-09-22"
-    },
-    {
-      "id": "circle-of-names",
-      "category": "Life admin",
-      "title": "The Circle of Names",
-      "summary": "A personal CRM sounds grim until you realise what it actually does: stops you losing people. Claude Code keeps a folder of one markdown file per friend — what's going on in their life, when you last spoke, which circle they're in — notices when someone close has gone quiet, and briefs you before you walk into dinner.",
-      "example": "dvcrn's 'friends' skill keeps its whole workspace in ~/friends/ as plain markdown: it picks up mentions of people from ordinary conversation, logs the job change or the new baby, and proactively surfaces the inner-circle names you haven't spoken to in too long.",
-      "recipe": {
-        "how": "Make a ~/friends/ folder with one markdown file per person and a CLAUDE.md saying how entries should be written and which circles exist. After any catch-up, tell Claude what you heard and let it file the update; ask it weekly who's gone quiet. Because it's plain text, you can read and correct the whole thing yourself — which matters more here than anywhere else.",
-        "tools": [
-          "Claude Code",
-          "a plain markdown folder",
-          "optionally the 'friends' skill as a starting point"
-        ],
-        "difficulty": "one-evening"
-      },
-      "criteria": {
-        "creative": true,
-        "useful": true,
-        "fun": false,
-        "painPoint": true,
-        "money": false
-      },
-      "score": 3,
-      "sources": [
-        {
-          "title": "MCP Market — Friends: Personal Relationship Manager skill (dvcrn)",
-          "url": "https://mcpmarket.com/tools/skills/personal-relationship-manager-friends"
-        },
-        {
-          "title": "Growth Unhinged — How I built a personal CRM (and why you should, too)",
-          "url": "https://www.growthunhinged.com/p/personal-ai-crm"
-        }
-      ],
-      "week": "2026-W39",
-      "added": "2026-09-22"
-    },
-    {
-      "id": "denial-breaker",
-      "category": "Life admin",
-      "title": "The Denial Breaker",
-      "summary": "A denied insurance claim is designed to be exhausting — reason codes, policy clauses, a filing deadline you'll miss. People are handing the whole pile to Claude Code: it decodes the denial, maps each stated reason to the evidence that rebuts it, and drafts the formal appeal letter with the policy language cited back.",
-      "example": "The five-step workflow doing the rounds — decode the denial letter, gather records and the medical-necessity letter, draft a point-by-point rebuttal, personalize it, then track the deadline — has a harder-edged cousin in the elder-care-casework plugin, which does the same for nursing-facility records review, Medicare/Medicaid appeals and HIPAA records requests on behalf of a parent.",
-      "recipe": {
-        "how": "Put the denial letter, your policy document, and every relevant medical record in one folder and ask Claude Code to extract the reason codes, the deadline, and exactly what evidence each denial reason requires. Have it draft a formal letter that answers each point with a citation, then rewrite the personal-impact paragraph in your own voice before sending. Keep the folder as the case file — appeals escalate, and the second round wants the first round's history.",
-        "tools": [
-          "Claude Code",
-          "your denial letter, policy document and medical records as files",
-          "optionally the elder-care-casework plugin"
-        ],
-        "difficulty": "one-evening"
-      },
-      "criteria": {
-        "creative": false,
-        "useful": true,
-        "fun": false,
-        "painPoint": true,
-        "money": true
-      },
-      "score": 3,
-      "sources": [
-        {
-          "title": "Counterforce Health — How to Use Claude to Appeal Your Denied Health Insurance Claim",
-          "url": "https://www.counterforcehealth.org/post/how-to-use-claude-to-appeal-your-denied-health-insurance-claim/"
-        },
-        {
-          "title": "Awesome Claude Plugins — mbeacom/elder-care-casework",
-          "url": "https://awesomeclaudeplugins.com/mbeacom/elder-care-casework"
-        }
-      ],
-      "week": "2026-W39",
-      "added": "2026-09-22"
+      "added": "2026-09-22",
+      "sourceDate": "2026-03"
     },
     {
       "id": "apprentices-bench",
@@ -998,7 +929,8 @@
         }
       ],
       "week": "2026-W39",
-      "added": "2026-09-22"
+      "added": "2026-09-22",
+      "sourceDate": "2026-07-03"
     }
   ]
 }
