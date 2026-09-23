@@ -3,8 +3,11 @@
 
 Checks: required fields, criteria keys, score = number of true criteria,
 unique ids, week format YYYY-Www, http(s) source URLs, ISO dates.
+Also warns (without failing) when a spell's sourceDate is far older than
+the week it was shelved in — see STALE_DAYS.
 Exit 0 on success, 1 with messages on failure. Stdlib only.
 """
+import datetime
 import json
 import re
 import sys
@@ -19,10 +22,34 @@ WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 MONTH_RE = re.compile(r"^\d{4}-\d{2}$")
 REQUIRED = ["id", "title", "category", "summary", "criteria", "score", "recipe", "sources", "week", "added"]
+# sourceDate is optional (older entries predate it) and may be YYYY-MM or YYYY-MM-DD.
+SOURCE_DATE_RE = re.compile(r"^\d{4}-\d{2}(-\d{2})?$")
+STALE_DAYS = 60
+
+
+def week_start(week: str):
+    """Monday of an ISO week string like '2026-W39', or None if unparseable."""
+    try:
+        year, num = week.split("-W")
+        return datetime.date.fromisocalendar(int(year), int(num), 1)
+    except (ValueError, AttributeError):
+        return None
+
+
+def parse_source_date(value: str):
+    """YYYY-MM-DD, or the 1st of the month for YYYY-MM. None if unparseable."""
+    try:
+        parts = value.split("-")
+        if len(parts) == 2:
+            return datetime.date(int(parts[0]), int(parts[1]), 1)
+        return datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
+    except (ValueError, IndexError):
+        return None
 
 
 def main() -> int:
     errors = []
+    warnings = []
     try:
         doc = json.loads(DATA.read_text())
     except (OSError, json.JSONDecodeError) as e:
@@ -71,6 +98,18 @@ def main() -> int:
             errors.append(f"{label}: week must be YYYY-Www (e.g. 2026-W29)")
         if not DATE_RE.match(uc.get("added", "")):
             errors.append(f"{label}: added must be YYYY-MM-DD")
+        src_date = uc.get("sourceDate")
+        if src_date is not None:
+            if not SOURCE_DATE_RE.match(str(src_date)):
+                errors.append(f"{label}: sourceDate must be YYYY-MM or YYYY-MM-DD")
+            else:
+                published, shelved = parse_source_date(src_date), week_start(uc.get("week", ""))
+                if published and shelved:
+                    age = (shelved - published).days
+                    if age > STALE_DAYS:
+                        warnings.append(
+                            f"{label}: source is {age} days older than week {uc['week']} "
+                            f"(published {src_date}) — fine if deliberate, but say so")
         srcs = uc.get("sources", [])
         if not srcs:
             errors.append(f"{label}: at least one source required")
@@ -88,12 +127,19 @@ def main() -> int:
             errors.append(f"librarianNotes[{i}]: duplicate month {note.get('month')}")
         note_months.add(note.get("month"))
 
+    if warnings:
+        print(f"WARN: {len(warnings)} stale-source note(s):")
+        for w in warnings:
+            print(f"  ! {w}")
+
     if errors:
         print(f"FAIL: {len(errors)} problem(s) in {DATA.name}:")
         for e in errors:
             print(f"  - {e}")
         return 1
-    print(f"OK: {len(usecases)} use cases, {len({u['week'] for u in usecases})} week(s).")
+    dated = sum(1 for u in usecases if u.get("sourceDate"))
+    print(f"OK: {len(usecases)} use cases, {len({u['week'] for u in usecases})} week(s), "
+          f"{dated} with sourceDate.")
     return 0
 
 

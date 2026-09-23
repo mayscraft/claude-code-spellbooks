@@ -264,6 +264,13 @@ const matches = u => {
 };
 const month = u => parseInt(u.added.slice(5, 7), 10) - 1;
 const latestWeek = () => all.length ? all.map(u => u.week).sort().at(-1) : "";
+// When a spell was published in the wild, as opposed to when we shelved it.
+const sourceAge = u => {
+  if (!u.sourceDate) return "";
+  const [y, m, d] = u.sourceDate.split("-");
+  const when = `${d ? parseInt(d, 10) + " " : ""}${MONTHS[parseInt(m, 10) - 1]} ${y}`;
+  return ` · 📅 source ${when}`;
+};
 
 function renderShelves() {
   const sparkles = Array.from({length: 8}, (_, i) =>
@@ -309,7 +316,7 @@ function cardHTML(u) {
     `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
   return `<div class="card"><h3>${esc(u.title)}</h3><p>${esc(u.summary)}</p>
     <div class="badges">${badges}</div>
-    <div class="meta">score ${u.score} · ${esc(u.category)} · 📜 ${esc(u.recipe?.difficulty || "?")} · ${esc(u.week)} · ${sources}</div></div>`;
+    <div class="meta">score ${u.score} · ${esc(u.category)} · 📜 ${esc(u.recipe?.difficulty || "?")} · ${esc(u.week)}${esc(sourceAge(u))} · ${sources}</div></div>`;
 }
 
 function renderDrawers() {
@@ -355,7 +362,7 @@ function openBook(u) {
   document.getElementById("modal").innerHTML = `<div class="modal-top">
     <button class="xbtn" aria-label="Close">✕</button>
     <h3>${esc(u.title)}</h3>
-    <div class="cat">${CAT_ICONS[u.category]} ${esc(u.category)} · score ${u.score} · added ${esc(u.added)} (${esc(u.week)})</div>
+    <div class="cat">${CAT_ICONS[u.category]} ${esc(u.category)} · score ${u.score} · added ${esc(u.added)} (${esc(u.week)})${esc(sourceAge(u))}</div>
     <p>${esc(u.summary)}</p>
     ${u.example ? `<div class="example">e.g. ${esc(u.example)}</div>` : ""}
     ${u.recipe ? `<div class="recipe"><div class="rhead">📜 How to cast it<span class="diff">${esc(u.recipe.difficulty)}</span></div>

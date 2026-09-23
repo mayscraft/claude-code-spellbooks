@@ -14,7 +14,11 @@ app, the schema, and the weekly pipeline.
   *saves the caster money*, not makes money.
 - **Validate before committing data:** run `python3 check_usecases.py`
   (schema, unique ids, score = count of true criteria, one librarian's
-  note per month).
+  note per month). It also WARNs when a spell's `sourceDate` is >60 days
+  older than its `week` — never ship that warning unexplained.
+- **Recency is part of the schema.** Record each find's `sourceDate`
+  (when it was published) alongside `week` (when we shelved it). A thin
+  week gets fewer spells, never older ones as filler.
 - **Small commits, clear messages.** Commit identity is repo-local:
   `May Soon <301647653+mayscraft@users.noreply.github.com>` — never use
   the work email.

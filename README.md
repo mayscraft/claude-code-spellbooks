@@ -123,9 +123,16 @@ Add an entry to `data/usecases.json`:
   "score": 2,
   "sources": [{ "title": "Where you found it", "url": "https://..." }],
   "week": "2026-W29",
-  "added": "2026-07-15"
+  "added": "2026-07-15",
+  "sourceDate": "2026-07"
 }
 ```
+
+`sourceDate` (optional, `YYYY-MM` or `YYYY-MM-DD`) is when the source was
+*published*, as opposed to `week`, which is when we *shelved* it. It shows
+on the tome as `📅 source Jul 2026`, and the validator warns when the two
+drift more than 60 days apart — so an old find can still be shelved, but
+never quietly as this week's discovery.
 
 Then validate before committing:
 
@@ -135,7 +142,9 @@ python3 check_usecases.py
 
 It enforces the schema: `score` must equal the count of true criteria,
 `category` and `difficulty` must come from the fixed lists, ids must be
-unique, every spell needs a source and a recipe.
+unique, every spell needs a source and a recipe. It also prints a
+non-fatal `WARN` for any spell whose `sourceDate` is more than 60 days
+older than its `week` — deliberate is fine, unexplained is not.
 
 ## House rules
 
